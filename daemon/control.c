@@ -55,6 +55,15 @@ UUID_DEFINE(router_10x10x4x4_room,0xA7,0x91,0xA5,0xF7,0xA6,0xA2,0x44,0xD5,0x91,0
 /* room with 40 audio capture ports, 40 audio playback ports, 16 midi capture ports and 16 midi playback ports */
 UUID_DEFINE(router_40x40x16x16_room,0x42,0xD5,0x80,0xF4,0xC5,0xE5,0x49,0x09,0xBC,0x65,0xDF,0xD9,0x6B,0x3C,0xBF,0xCE);
 
+/* e20e4f09-706c-4396-9f7b-743d59f863e2 */
+UUID_DEFINE(upmix_20_40_room,0xE2,0x0E,0x4F,0x09,0x70,0x6C,0x43,0x96,0x9F,0x7B,0x74,0x3D,0x59,0xF8,0x63,0xE2);
+
+/* 645004d8-b362-4f48-a815-a4e393eeb62d */
+UUID_DEFINE(upmix_20_51_room,0x64,0x50,0x04,0xD8,0xB3,0x62,0x4F,0x48,0xA8,0x15,0xA4,0xE3,0x93,0xEE,0xB6,0x2D);
+
+/* cbc5a55a-618b-415e-aaf6-ab0a3c9dbd81 */
+//UUID_DEFINE(next_room,0xCB,0xC5,0xA5,0x5A,0x61,0x8B,0x41,0x5E,0xAA,0xF6,0xAB,0x0A,0x3C,0x9D,0xBD,0x81)
+
 const unsigned char * ladish_wkport_router_audio_capture[] =
 {
   ladish_wkport_router_audio_capture_1,
@@ -415,6 +424,87 @@ void create_builtin_room_templates(void)
   create_router_room_template(router_10x10x4x4_room, "Router 10x10x4x4", 10, 10, 4, 4);
   create_router_room_template(router_40x40x16x16_room, "Router 40x40x16x16", 40, 40, 16, 16);
 
+  if (create_room_template(upmix_20_40_room, "Stereo to 4.0 Upmixer", &room_descriptor))
+  {
+    // Not sure if we need to define new uuids for these ports?
+    if (!create_room_template_port(&room_descriptor, ladish_wkport_router_audio_capture_1, "left", JACKDBUS_PORT_TYPE_AUDIO, JACKDBUS_PORT_FLAG_OUTPUT))
+    {
+      goto fail;
+    }
+
+    if (!create_room_template_port(&room_descriptor, ladish_wkport_router_audio_capture_2, "right", JACKDBUS_PORT_TYPE_AUDIO, JACKDBUS_PORT_FLAG_OUTPUT))
+    {
+      goto fail;
+    }
+
+    if (!create_room_template_port(&room_descriptor, ladish_wkport_router_audio_playback_1, "front-left", JACKDBUS_PORT_TYPE_AUDIO, JACKDBUS_PORT_FLAG_INPUT))
+    {
+      goto fail;
+    }
+
+    if (!create_room_template_port(&room_descriptor, ladish_wkport_router_audio_playback_2, "front-right", JACKDBUS_PORT_TYPE_AUDIO, JACKDBUS_PORT_FLAG_INPUT))
+    {
+      goto fail;
+    }
+
+    if (!create_room_template_port(&room_descriptor, ladish_wkport_router_audio_playback_3, "rear-left", JACKDBUS_PORT_TYPE_AUDIO, JACKDBUS_PORT_FLAG_INPUT))
+    {
+      goto fail;
+    }
+
+    if (!create_room_template_port(&room_descriptor, ladish_wkport_router_audio_playback_4, "rear-right", JACKDBUS_PORT_TYPE_AUDIO, JACKDBUS_PORT_FLAG_INPUT))
+    {
+      goto fail;
+    }
+
+    list_add_tail(ladish_room_get_list_node(room_descriptor.room), &g_room_templates);
+  }
+
+  if (create_room_template(upmix_20_51_room, "Stereo to 5.1 Upmixer", &room_descriptor))
+  {
+    // Not sure if we need to define new uuids for these ports?
+    if (!create_room_template_port(&room_descriptor, ladish_wkport_router_audio_capture_1, "left", JACKDBUS_PORT_TYPE_AUDIO, JACKDBUS_PORT_FLAG_OUTPUT))
+    {
+      goto fail;
+    }
+
+    if (!create_room_template_port(&room_descriptor, ladish_wkport_router_audio_capture_2, "right", JACKDBUS_PORT_TYPE_AUDIO, JACKDBUS_PORT_FLAG_OUTPUT))
+    {
+      goto fail;
+    }
+
+    if (!create_room_template_port(&room_descriptor, ladish_wkport_router_audio_playback_1, "front-left", JACKDBUS_PORT_TYPE_AUDIO, JACKDBUS_PORT_FLAG_INPUT))
+    {
+      goto fail;
+    }
+
+    if (!create_room_template_port(&room_descriptor, ladish_wkport_router_audio_playback_2, "front-right", JACKDBUS_PORT_TYPE_AUDIO, JACKDBUS_PORT_FLAG_INPUT))
+    {
+      goto fail;
+    }
+
+    if (!create_room_template_port(&room_descriptor, ladish_wkport_router_audio_playback_3, "rear-left", JACKDBUS_PORT_TYPE_AUDIO, JACKDBUS_PORT_FLAG_INPUT))
+    {
+      goto fail;
+    }
+
+    if (!create_room_template_port(&room_descriptor, ladish_wkport_router_audio_playback_4, "rear-right", JACKDBUS_PORT_TYPE_AUDIO, JACKDBUS_PORT_FLAG_INPUT))
+    {
+      goto fail;
+    }
+
+    if (!create_room_template_port(&room_descriptor, ladish_wkport_router_audio_playback_5, "front-center", JACKDBUS_PORT_TYPE_AUDIO, JACKDBUS_PORT_FLAG_INPUT))
+    {
+      goto fail;
+    }
+
+    if (!create_room_template_port(&room_descriptor, ladish_wkport_router_audio_playback_6, "lfe", JACKDBUS_PORT_TYPE_AUDIO, JACKDBUS_PORT_FLAG_INPUT))
+    {
+      goto fail;
+    }
+
+    list_add_tail(ladish_room_get_list_node(room_descriptor.room), &g_room_templates);
+  }
   return;
 
 fail:

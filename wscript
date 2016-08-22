@@ -14,7 +14,7 @@ parallel_debug = False
 APPNAME='ladish'
 VERSION='2-dev'
 DBUS_NAME_BASE = 'org.ladish'
-RELEASE = False
+RELEASE = True
 
 # these variables are mandatory ('/' are converted automatically)
 top = '.'
@@ -396,6 +396,7 @@ def build(bld):
         'room.c',
         'room_save.c',
         'room_load.c',
+        'room_supervisor.c',
         'recent_store.c',
         'recent_projects.c',
         'check_integrity.c',
@@ -412,6 +413,7 @@ def build(bld):
         "notify_proxy.c",
         "conf_proxy.c",
         "lash_client_proxy.c",
+        "room_supervisor_proxy.c",
         ]:
         daemon.source.append(os.path.join("proxies", source))
 

@@ -1030,7 +1030,7 @@ CDBUS_METHOD_ARGS_BEGIN(GetRoomTemplateList, "Get list of room templates")
 CDBUS_METHOD_ARGS_END
 
 CDBUS_METHOD_ARGS_BEGIN(CreateRoomTemplate, "New room template")
-  CDBUS_METHOD_ARG_DESCRIBE_IN("room_template name", "s", "Name of the room template")
+  CDBUS_METHOD_ARG_DESCRIBE_IN("room_template_name", "s", "Name of the room template")
 CDBUS_METHOD_ARGS_END
 
 CDBUS_METHOD_ARGS_BEGIN(DeleteRoomTemplate, "Delete room template")

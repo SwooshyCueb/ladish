@@ -30,6 +30,7 @@
 #include "app_supervisor.h"
 #include "graph.h"
 #include "room.h"
+#include "room_supervisor.h"
 #include "virtualizer.h"
 
 bool ladish_studio_init(void);
